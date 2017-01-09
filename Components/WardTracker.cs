@@ -132,7 +132,7 @@ namespace MasterMind.Components
                 {
                     case Ward.Type.SightWard:
                     case Ward.Type.YellowTrinket:
-                    case Ward.Type.Shroom:
+                    case Ward.Type.TeemoMushroom:
 
                         if (fakeWard.RemainingTime <= 0)
                         {
@@ -290,8 +290,10 @@ namespace MasterMind.Components
             }
             foreach (var ward in DetectableWards.Where(ward => ward.MatchesBuffGain(sender, args)))
             {
+                Console.Write("detected");
                 if (CreatedWards.Contains(sender))
                 {
+                    
                     // Check if there is already a fake ward at that position
                     var fakeWard = ActiveWards.Where(o => o.IsFakeWard && o.Team == sender.Team)
                         .Where(
@@ -396,7 +398,7 @@ namespace MasterMind.Components
                 SightWard = 0,
                 JammerDevice = 1,
                 YellowTrinket = 2,
-                Shroom = 4
+                TeemoMushroom = 4
             }
 
             public enum PinkColors
@@ -520,7 +522,7 @@ namespace MasterMind.Components
                     {
                         case Type.SightWard:
                         case Type.YellowTrinket:
-                        case Type.Shroom:
+                        case Type.TeemoMushroom:
                             return
                                 IsVisible
                                     ? (int) Handle.Mana

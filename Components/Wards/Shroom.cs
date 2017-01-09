@@ -20,7 +20,7 @@
         }
         public override WardTracker.Ward.Type Type
         {
-            get { return WardTracker.Ward.Type.Shroom; }
+            get { return WardTracker.Ward.Type.TeemoMushroom; }
         }
     }
 }

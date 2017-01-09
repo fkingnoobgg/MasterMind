@@ -70,7 +70,7 @@ namespace MasterMind.Components.Wards
                     return 150;
                 case WardTracker.Ward.Type.YellowTrinket:
                     return (int) Math.Ceiling(60 + 3.5 * (caster.Level - 1));
-                case WardTracker.Ward.Type.Shroom:
+                case WardTracker.Ward.Type.TeemoMushroom:
                     return 300;
             }
 

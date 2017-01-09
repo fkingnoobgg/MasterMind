@@ -15,8 +15,6 @@ using SharpDX;
 using Utility = MasterMind.Components.Utility;
 // TODO: 
 // show teemo passive and shrooms
-// show pink ward
-// show ward ranges
 namespace MasterMind
 {
     public static class MasterMind
