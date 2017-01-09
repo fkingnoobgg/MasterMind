@@ -265,14 +265,7 @@ namespace MasterMind.Components
             {
                 // Remove it from the lists
                 CreatedWards.Remove((Obj_AI_Base)sender);
-                // if its teemo shroom just remove it  
-                if (sender.Name == "Noxious Trap") 
-                {
-                    ActiveWards.RemoveAll(o => o.Position.IsInRange(sender.Position, 50));
-                }    
-                else
-                {
-                    ActiveWards.RemoveAll(o => !o.IsFakeWard && o.Handle.IdEquals(sender));
+                ActiveWards.RemoveAll(o => !o.IsFakeWard && o.Handle.IdEquals(sender));       
             }
         }
 
@@ -660,6 +653,9 @@ namespace MasterMind.Components
 
             public void DrawHealth()
             {
+                // don't draw heatlh for shrooms
+                if (WardInfo.FriendlyName == "Shroom") { return;  }
+
                 // Get the screen position
                 var pos = ScreenPosition;
 
