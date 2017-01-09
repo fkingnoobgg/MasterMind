@@ -22,6 +22,7 @@ namespace MasterMind.Components
 {
     public sealed class WardTracker : IComponent
     {
+        public static Dictionary<Obj_AI_Base, bool> TeemosStealthed { get; private set; }
         public static Dictionary<Ward.Type, CheckBox> EnabledWards { get; private set; }
         private static readonly List<Obj_AI_Base> CreatedWards = new List<Obj_AI_Base>();
         public static Ward.PinkColors PinkColor { get; private set; }
@@ -58,6 +59,9 @@ namespace MasterMind.Components
 
         public void InitializeComponent()
         {
+            // Initialize teemos
+            TeemosStealthed = new Dictionary<Obj_AI_Base, bool>();
+
             // Initialize menu
             Menu = MasterMind.Menu.AddSubMenu("Ward Tracker", longTitle: "Ward Presence Tracker");
 
@@ -146,6 +150,17 @@ namespace MasterMind.Components
 
         private void OnDraw(EventArgs args)
         {
+            foreach( KeyValuePair<Obj_AI_Base, bool> Teemo in TeemosStealthed)
+            {
+                // if teemo is stealthed draw its position
+                if (Teemo.Value)
+                {
+                    Drawing.DrawCircle(Teemo.Key.Position, 100, Color.Red);
+                    Drawing.DrawCircle(Teemo.Key.Position, 99, Color.Red);
+                    Drawing.DrawText(Teemo.Key.Position.WorldToScreen(), Color.Red, "Teemo", 25);
+                }
+            }
+
             ActiveWards.ForEach(ward =>
             {
                 // Check if ward type is enabled
@@ -283,6 +298,25 @@ namespace MasterMind.Components
 
         private void OnBuffGain(Obj_AI_Base sender, Obj_AI_BaseBuffGainEventArgs args)
         {
+            // checking if teemo becomes stealthed or goes out of stealth
+            // set teemo stealthed to true
+            if (sender.BaseSkinName == "Teemo" && args.Buff.Name == "camouflagestealth" && sender.IsEnemy)
+            {
+                if (TeemosStealthed.ContainsKey(sender))
+                {
+                    TeemosStealthed[sender] = true;
+                }
+                else
+                {
+                    TeemosStealthed.Add(sender, true);
+                }
+            }
+            // set teemo stealthed to false
+            else if (sender.BaseSkinName == "Teemo" && args.Buff.Name == "teemocamouflagestealthtt" && sender.IsEnemy)
+            {
+                TeemosStealthed[sender] = false;
+            }
+
             // Only check minion types
             if (sender.Type != GameObjectType.obj_AI_Minion)
             {
@@ -290,7 +324,6 @@ namespace MasterMind.Components
             }
             foreach (var ward in DetectableWards.Where(ward => ward.MatchesBuffGain(sender, args)))
             {
-                Console.Write("detected");
                 if (CreatedWards.Contains(sender))
                 {
                     

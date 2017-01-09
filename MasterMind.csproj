@@ -55,22 +55,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EloBuddy">
-      <HintPath>..\..\Loader\System\EloBuddy.dll</HintPath>
+      <HintPath>..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\EloBuddy.dll</HintPath>
     </Reference>
     <Reference Include="EloBuddy.Sandbox">
-      <HintPath>..\..\Loader\System\EloBuddy.Sandbox.dll</HintPath>
+      <HintPath>..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\EloBuddy.Sandbox.dll</HintPath>
     </Reference>
     <Reference Include="EloBuddy.SDK">
-      <HintPath>..\..\Loader\System\EloBuddy.SDK.dll</HintPath>
+      <HintPath>..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\EloBuddy.SDK.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\Loader\System\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX">
-      <HintPath>..\..\Loader\System\SharpDX.dll</HintPath>
+      <HintPath>..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct3D9">
-      <HintPath>..\..\Loader\System\SharpDX.Direct3D9.dll</HintPath>
+      <HintPath>..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\SharpDX.Direct3D9.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -88,9 +88,10 @@
     <Compile Include="Components\Utility.cs" />
     <Compile Include="Components\Wards\YellowTrinket.cs" />
     <Compile Include="Components\Wards\SightWard.cs" />
-    <Compile Include="Components\Wards\VisionWard.cs" />
+    <Compile Include="Components\Wards\ControlWard.cs" />
     <Compile Include="Components\Wards\BlueTrinket.cs" />
     <Compile Include="Components\Wards\WardBase.cs" />
+    <Compile Include="Components\Wards\Shroom.cs" />
     <Compile Include="Components\WardTracker.cs" />
     <Compile Include="Components\Wards\IWard.cs" />
     <Compile Include="IComponent.cs" />
@@ -122,9 +123,9 @@
     <Content Include="Resources\CooldownTracker\SummonerSlots.png" />
     <Content Include="Resources\MapHack\UnknownChamp.png" />
     <Content Include="Resources\WardTracker\BlueTrinket.png" />
-    <Content Include="Resources\WardTracker\VisionWard.png" />
-    <Content Include="Resources\WardTracker\VisionWard_Enemy.png" />
-    <Content Include="Resources\WardTracker\VisionWard_Friendly.png" />
+    <Content Include="Resources\WardTracker\ControlWard.png" />
+    <Content Include="Resources\WardTracker\ControlWard_Enemy.png" />
+    <Content Include="Resources\WardTracker\ControlWard_Friendly.png" />
     <Content Include="Resources\WardTracker\YellowTrinket_Enemy.png" />
     <Content Include="Resources\WardTracker\YellowTrinket_Friendly.png" />
   </ItemGroup>
