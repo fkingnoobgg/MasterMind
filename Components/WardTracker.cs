@@ -273,7 +273,6 @@ namespace MasterMind.Components
                 else
                 {
                     ActiveWards.RemoveAll(o => !o.IsFakeWard && o.Handle.IdEquals(sender));
-                }         
             }
         }
 
