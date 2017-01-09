@@ -244,13 +244,21 @@ namespace MasterMind.Components
 
         private void OnDelete(GameObject sender, EventArgs args)
         {
+            
             // Check if the sender is a minion object
             if (sender.Type == GameObjectType.obj_AI_Minion)
             {
                 // Remove it from the lists
-                CreatedWards.Remove((Obj_AI_Base)sender);                   
-                if (ActiveWards.RemoveAll(o => !o.IsFakeWard && o.Handle.IdEquals(sender)) > 0)
-                    Console.Write("removed");
+                CreatedWards.Remove((Obj_AI_Base)sender);
+                // if its teemo shroom just remove it  
+                if (sender.Name == "Noxious Trap") 
+                {
+                    ActiveWards.RemoveAll(o => o.Position.IsInRange(sender.Position, 50));
+                }    
+                else
+                {
+                    ActiveWards.RemoveAll(o => !o.IsFakeWard && o.Handle.IdEquals(sender));
+                }         
             }
         }
 
@@ -280,12 +288,10 @@ namespace MasterMind.Components
             {
                 return;
             }
-
             foreach (var ward in DetectableWards.Where(ward => ward.MatchesBuffGain(sender, args)))
             {
                 if (CreatedWards.Contains(sender))
                 {
-                    Console.Write("ward detected");
                     // Check if there is already a fake ward at that position
                     var fakeWard = ActiveWards.Where(o => o.IsFakeWard && o.Team == sender.Team)
                         .Where(
@@ -345,7 +351,6 @@ namespace MasterMind.Components
                 // Check if any detectable ward matches the spell cast
                 foreach (var ward in DetectableWards.Where(ward => ward.MatchesSpellCast(sender, args)))
                 {
-                    Console.Write("creating");
                     ActiveWards.Add(ward.CreateFakeWard((AIHeroClient) sender, args.End));
                     break;
                 }
@@ -588,7 +593,15 @@ namespace MasterMind.Components
             public void RenderWard()
             {
                 // TODO: Replace with fake object rendering once it's added by finn
-                Circle.Draw(Color.ToBgra(150), Radius, 3, Position);
+                if (WardInfo.FriendlyName == "Shroom")
+                {
+                    Circle.Draw(Color.ToBgra(250), 100, 3, Position);
+                }
+                else
+                {
+                    Circle.Draw(Color.ToBgra(150), Radius, 3, Position);
+                }
+                
             }
 
             public void DrawMinimap()
@@ -605,7 +618,7 @@ namespace MasterMind.Components
                 var time = RemainingTimeText;
                 if (time != null)
                 {
-                    TextHandle.TextValue = "Ward: " + time;
+                    TextHandle.TextValue = WardInfo.FriendlyName == "Shroom" ? "Shroom: " + time : "Ward: " + time;
                     TextHandle.Position = new Vector2(ScreenPosition.X - TextHandle.Bounding.Width / 2f, ScreenPosition.Y + HealthBar.Height);
                     TextHandle.Draw();
                 }

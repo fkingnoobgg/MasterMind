@@ -25,13 +25,14 @@ namespace MasterMind.Components.Wards
         }
 
         public virtual bool MatchesBuffGain(Obj_AI_Base sender, Obj_AI_BaseBuffGainEventArgs args)
-        {   
+        {
             return sender.BaseSkinName == BaseSkinName
                    && args.Buff.Name == DetectingBuffName;
         }
 
         public virtual bool MatchesSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
+            Console.Write("{0}", args.SData.Name);
             return String.Equals(args.SData.Name, DetectingSpellCastName, StringComparison.CurrentCultureIgnoreCase);
         }
 
